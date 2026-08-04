@@ -1,0 +1,58 @@
+---
+services:
+  grafana:
+    image: grafana/grafana:12.3.0-18925857539
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+      GF_SERVER_ROOT_URL: ${GRAFANA_SERVER_ROOT_URL}
+      GF_USERS_DEFAULT_HOME_PAGE: /d/adxgqqh/traffic-oracle
+      GF_PLUGINS_PREINSTALL_SYNC: yesoreyeram-infinity-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/etc/grafana/dashboards:ro
+    networks:
+      default:
+      static:
+        ipv4_address: 172.30.0.3
+    mem_limit: 512m
+    cpus: 0.5
+
+  nginx:
+    image: nginx:1.29.3
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - runtime_data:/usr/share/nginx/html:ro
+      - ./nginx/default.conf:/etc/nginx/templates/default.conf.template:ro
+    networks:
+      default:
+      static:
+        ipv4_address: 172.30.0.2
+        aliases:
+          - static
+
+  fetcher:
+    build:
+      context: .
+      dockerfile: images/Dockerfile.fetcher
+    image: local/traffic-oracle-fetcher:latest
+    env_file:
+      - .env
+    volumes:
+      - ./origins.yaml:/app/origins.yaml:ro
+      - runtime_data:/app/runtime/static
+
+volumes:
+  grafana_data:
+  runtime_data:
+
+networks:
+  static:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24

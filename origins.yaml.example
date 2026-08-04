@@ -1,0 +1,7 @@
+pairs:
+  - origin:
+      name: home
+      location: "35.000000,51.000000"
+    destination:
+      name: work
+      location: "35.000000,51.000000"

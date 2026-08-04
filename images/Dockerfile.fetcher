@@ -1,0 +1,13 @@
+FROM alpine:3.20
+
+RUN apk add --no-cache \
+    python3 \
+    py3-yaml \
+    tzdata
+
+WORKDIR /app
+
+COPY fetch-distance.py fetch-taxi.py origins.yaml version.yaml ./
+COPY traffic_oracle ./traffic_oracle
+
+CMD ["python3", "-m", "traffic_oracle.scheduler"]
