@@ -34,7 +34,7 @@ def fetch_duration(pair: RoutePair, api_key: str) -> int:
         with urllib.request.urlopen(request, timeout=30) as response:
             payload = json.loads(response.read().decode("utf-8"))
     except urllib.error.HTTPError as exc:
-        raise ApiError(f"Neshan request failed with HTTP {exc.code}") from exc
+        raise ApiError(f"Neshan request failed with HTTP {exc.code}", status_code=exc.code) from exc
     except (urllib.error.URLError, OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise ApiError(f"Neshan request failed: {exc}") from exc
     try:
