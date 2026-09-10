@@ -29,6 +29,10 @@ TAXI_PRICES_HEADER = ["origin", "destination", "snapp_price", "tapsi_price", "ts
 class ApiError(RuntimeError):
     """An expected external API failure that should not stop other routes."""
 
+    def __init__(self, message: str, status_code: int | None = None) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+
 
 def app_version() -> str:
     version_file = Path(__file__).resolve().parents[1] / "version.yaml"
@@ -59,6 +63,18 @@ def load_dotenv(path: str | Path = ".env") -> None:
         key = key.strip()
         value = value.strip().strip('"').strip("'")
         os.environ.setdefault(key, value)
+
+
+def read_token_state(path: str | Path) -> dict[str, str]:
+    """Read a JSON token-state file, tolerating a missing or empty file."""
+    state_path = Path(path)
+    if not state_path.exists() or state_path.stat().st_size == 0:
+        return {}
+    return json.loads(state_path.read_text(encoding="utf-8"))
+
+
+def write_token_state(path: str | Path, state: dict[str, str]) -> None:
+    Path(path).write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
 
 
 def ensure_timezone() -> None:

@@ -44,6 +44,7 @@ services:
       - .env
     volumes:
       - ./origins.yaml:/app/origins.yaml:ro
+      - ./token-state.json:/app/token-state.json
       - runtime_data:/app/runtime/static
 
 volumes:

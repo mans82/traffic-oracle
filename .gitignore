@@ -1,4 +1,5 @@
 .env
+token-state.json
 origins.yaml
 __pycache__/
 *.py[cod]
