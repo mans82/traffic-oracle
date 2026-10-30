@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-COPY fetch-distance.py fetch-taxi.py origins.yaml version.yaml ./
+COPY fetch-distance.py fetch-taxi.py version.yaml ./
 COPY traffic_oracle ./traffic_oracle
 
 CMD ["python3", "-m", "traffic_oracle.scheduler"]

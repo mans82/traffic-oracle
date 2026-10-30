@@ -1,0 +1,12 @@
+Traffic Oracle {{ .Chart.AppVersion }} installed as release {{ .Release.Name }}.
+
+Grafana: {{ include "traffic-oracle.grafanaRootUrl" . }}/
+
+Admin password (user is in the same secret, key admin-user):
+
+  kubectl --namespace {{ .Release.Namespace }} get secret {{ include "traffic-oracle.grafanaSecretName" . }} \
+    -o jsonpath='{.data.admin-password}' | base64 -d
+
+Fetcher logs:
+
+  kubectl --namespace {{ .Release.Namespace }} logs -l component=fetcher -c fetcher -f

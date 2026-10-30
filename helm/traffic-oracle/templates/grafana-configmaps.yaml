@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "traffic-oracle.fullname" . }}-grafana-datasources
+  labels:
+    {{- include "traffic-oracle.labels" . | nindent 4 }}
+    component: grafana
+data:
+  {{- (.Files.Glob "files/provisioning/datasources/*.yaml").AsConfig | nindent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "traffic-oracle.fullname" . }}-grafana-dashboard-providers
+  labels:
+    {{- include "traffic-oracle.labels" . | nindent 4 }}
+    component: grafana
+data:
+  {{- (.Files.Glob "files/provisioning/dashboards/*.yaml").AsConfig | nindent 2 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "traffic-oracle.fullname" . }}-grafana-dashboards
+  labels:
+    {{- include "traffic-oracle.labels" . | nindent 4 }}
+    component: grafana
+data:
+  {{- (.Files.Glob "files/dashboards/*.json").AsConfig | nindent 2 }}
