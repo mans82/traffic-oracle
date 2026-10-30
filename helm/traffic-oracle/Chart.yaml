@@ -1,0 +1,12 @@
+apiVersion: v2
+name: traffic-oracle
+description: Periodically records travel times and taxi-price estimates for configured routes, and serves a provisioned Grafana dashboard.
+type: application
+version: 0.1.0
+appVersion: "0.2.0"
+keywords:
+  - traffic
+  - grafana
+  - snapp
+  - tapsi
+  - neshan

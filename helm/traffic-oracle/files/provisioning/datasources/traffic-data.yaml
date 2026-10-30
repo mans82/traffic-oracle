@@ -5,10 +5,10 @@ datasources:
     uid: ef2mmdgoso2rkf
     type: yesoreyeram-infinity-datasource
     access: proxy
-    url: http://static/static/
+    url: ${TRAFFIC_ORACLE_CSV_BASE_URL}/
     isDefault: true
     editable: false
     jsonData:
       auth_method: none
       customHealthCheckEnabled: true
-      customHealthCheckUrl: http://static/static/travel-times.csv
+      customHealthCheckUrl: ${TRAFFIC_ORACLE_CSV_BASE_URL}/travel-times.csv

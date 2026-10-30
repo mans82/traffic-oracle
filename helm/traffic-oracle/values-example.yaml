@@ -1,0 +1,27 @@
+# Both secrets below must exist in the release namespace before installing;
+# the chart reads them and never creates them. See the chart README.
+#
+#   helm install traffic-oracle ./helm/traffic-oracle -f my-values.yaml
+
+fetcher:
+  image: ghcr.io/you/traffic-oracle-fetcher:0.2.0
+  intervalMinutes: 10
+
+credentials:
+  secretName: traffic-oracle-credentials
+
+origins:
+  pairs:
+    - origin:
+        name: home
+        location: "35.700000,51.400000"
+      destination:
+        name: work
+        location: "35.730000,51.420000"
+
+grafana:
+  adminSecretName: traffic-oracle-grafana
+
+ingress:
+  className: nginx
+  host: traffic-oracle.example.com

@@ -36,3 +36,14 @@ docker compose up -d --build
 Open the value of `GRAFANA_SERVER_ROOT_URL` in `.env` and sign in with `GRAFANA_ADMIN_USER` and `GRAFANA_ADMIN_PASSWORD`. The Traffic Oracle dashboard is the default landing page.
 
 App logs can be accessed using `docker compose logs`.
+
+Grafana's dashboard and provisioning files live in
+`helm/traffic-oracle/files/`, which compose bind-mounts; the chart is their
+single home so the two deployments cannot drift apart. See the
+[chart README](helm/traffic-oracle/README.md#grafana-config).
+
+## Kubernetes
+
+A Helm chart is provided in `helm/traffic-oracle` for running the same stack on
+Kubernetes. See [its README](helm/traffic-oracle/README.md) for the values and
+install steps.

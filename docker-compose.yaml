@@ -9,10 +9,11 @@ services:
       GF_SERVER_ROOT_URL: ${GRAFANA_SERVER_ROOT_URL}
       GF_USERS_DEFAULT_HOME_PAGE: /d/adxgqqh/traffic-oracle
       GF_PLUGINS_PREINSTALL_SYNC: yesoreyeram-infinity-datasource
+      TRAFFIC_ORACLE_CSV_BASE_URL: http://static/static
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro
-      - ./grafana/dashboards:/etc/grafana/dashboards:ro
+      - ./helm/traffic-oracle/files/provisioning:/etc/grafana/provisioning:ro
+      - ./helm/traffic-oracle/files/dashboards:/etc/grafana/dashboards:ro
     networks:
       default:
       static:
