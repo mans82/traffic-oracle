@@ -37,9 +37,7 @@ services:
           - static
 
   fetcher:
-    build:
-      context: .
-      dockerfile: images/Dockerfile.fetcher
+    build: .
     image: local/traffic-oracle-fetcher:latest
     env_file:
       - .env

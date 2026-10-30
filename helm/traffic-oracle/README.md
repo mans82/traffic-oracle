@@ -12,7 +12,7 @@ The fetcher image is built locally by compose, so push it somewhere the cluster
 can pull from first:
 
 ```sh
-docker build -t ghcr.io/you/traffic-oracle-fetcher:0.2.0 -f images/Dockerfile.fetcher .
+docker build -t ghcr.io/you/traffic-oracle-fetcher:0.2.0 .
 docker push ghcr.io/you/traffic-oracle-fetcher:0.2.0
 ```
 
